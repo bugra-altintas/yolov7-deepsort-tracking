@@ -23,7 +23,10 @@ tracker = YOLOv7_DeepSORT(reID_model_path="./deep_sort/model_weights/mars-small1
 #tracker.track_video(video_path, output="output.avi", skip_frames=0, show_live=True, count_objects=True, verbose=1)
 results = tracker.track_video(video_path, output="output.avi", skip_frames=0, show_live=False, count_objects=True, verbose=1)
 
-print(results)
+for key in results:
+    print("Bee",key,":")
+    for p in results[key]:
+        print("\t",p)
 
 
 # calculate centers of bounding boxes
