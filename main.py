@@ -16,13 +16,17 @@ detector = Detector(classes=[0])
 
 detector.load_model(model_path,)
 
+print("Detector loaded.")
+
 tracker = YOLOv7_DeepSORT(reID_model_path="./deep_sort/model_weights/mars-small128.pb", detector=detector)
 
-
+print("Starting tracking...")
 # Track the video
 #tracker.track_video(video_path, output="output.avi", skip_frames=0, show_live=True, count_objects=True, verbose=1)
 results = tracker.track_video(video_path, output="output.avi", skip_frames=0, show_live=False, count_objects=True, verbose=1)
 
+print("Tracking finished.")
+print("Printing results:")
 for key in results:
     print("Bee",key,":")
     for p in results[key]:
