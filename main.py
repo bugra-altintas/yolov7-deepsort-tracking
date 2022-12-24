@@ -1,5 +1,6 @@
 from detection_helpers import *
 from tracking_helpers import *
+from printing_helpers import *
 from bridge_wrapper import *
 from PIL import Image
 import sys
@@ -22,21 +23,4 @@ tracker = YOLOv7_DeepSORT(reID_model_path="./deep_sort/model_weights/mars-small1
 
 print("Starting tracking...")
 # Track the video
-#tracker.track_video(video_path, output="output.avi", skip_frames=0, show_live=True, count_objects=True, verbose=1)
-results = tracker.track_video(video_path, output="output.avi", skip_frames=0, show_live=False, count_objects=True, verbose=1)
-
-print("Tracking finished.")
-print("Printing results:")
-for key in results:
-    print("Bee",key,":")
-    for p in results[key]:
-        print("\t",p)
-
-
-# calculate centers of bounding boxes
-
-# id selection for tracking
-
-# returning the results
-
-############################################################################################################
+results = tracker.track_video(video_path, output="/Users/bugra/Desktop/deepsort/yolov7-deepsort-tracking/IO_data/output/output.avi", skip_frames=0, show_live=False, count_objects=True, verbose=1)
