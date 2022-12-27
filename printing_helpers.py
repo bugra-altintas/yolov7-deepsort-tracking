@@ -27,8 +27,8 @@ def draw_tracking_lines(results,bee_id,videopath,output_path):
     lines = []
 
     for i in range(1,len(positions)-1):
-        pt1 = ((positions[i-1][2] + positions[i-1][4])/2,(positions[i-1][3] + positions[i-1][5])/2)
-        pt2 = ((positions[i][2] + positions[i][4])/2,(positions[i][3] + positions[i][5])/2)
+        pt1 = (int((positions[i-1][2] + positions[i-1][4])/2),int((positions[i-1][3] + positions[i-1][5])/2))
+        pt2 = (int((positions[i][2] + positions[i][4])/2),int((positions[i][3] + positions[i][5])/2))
 
         lines.append([positions[i][0],pt1,pt2])
     
