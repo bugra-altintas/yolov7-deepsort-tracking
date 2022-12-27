@@ -87,7 +87,7 @@ class YOLOv7_DeepSORT:
         # initialize the results dict
         results = {}
 
-        frame_data = []
+        frame_data = {}
 
         # store the results in a dict
         frame_num = 0
@@ -166,7 +166,10 @@ class YOLOv7_DeepSORT:
                     if track_shape == 1 or track_shape == 2:
                         cv2.circle(frame, (int((bbox[0]+bbox[2])/2), int((bbox[1]+bbox[3])/2)), 4, color, -1) 
                 
-                frame_data.append([track.track_id, class_name, bbox[0], bbox[1], bbox[2], bbox[3]])
+                if frame_num not in frame_data:
+                    frame_data[frame_num] = [[track.track_id, class_name, bbox[0], bbox[1], bbox[2], bbox[3]]]
+                else:
+                    frame_data[frame_num].append([track.track_id, class_name, bbox[0], bbox[1], bbox[2], bbox[3]])
                 
                 if track.track_id not in results:
                     results[track.track_id] = [[frame_num, class_name, bbox[0], bbox[1], bbox[2], bbox[3]]]

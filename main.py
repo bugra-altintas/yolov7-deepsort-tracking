@@ -24,3 +24,6 @@ tracker = YOLOv7_DeepSORT(reID_model_path="./deep_sort/model_weights/mars-small1
 print("Starting tracking...")
 # Track the video
 results, frame_data = tracker.track_video(video_path, output="/Users/bugra/Desktop/deepsort/yolov7-deepsort-tracking/IO_data/output/output.avi", skip_frames=0, show_live=False, count_objects=True, verbose=1)
+
+
+
