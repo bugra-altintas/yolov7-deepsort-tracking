@@ -51,8 +51,37 @@ def draw_tracking_lines(results,videopath,output_path,bee_id=None):
                     if line[0] <= frame_num:
                         cv.line(frame,line[1],line[2],color,2)
             out.write(frame)
+    elif len(bee_id) > 1:
+        allLines = {}
+        for bid in bee_id:
+            pos = results[bid]
+            lines = []
+            for i in range(1,len(pos)-1):
+                pt1 = (int((pos[i-1][2] + pos[i-1][4])/2),int((pos[i-1][3] + pos[i-1][5])/2))
+                pt2 = (int((pos[i][2] + pos[i][4])/2),int((pos[i][3] + pos[i][5])/2))
+                lines.append([pos[i][0],pt1,pt2])
+            allLines[bid] = lines
+        frame_num = 0
+        while True: # while video is running
+            return_value, frame = vid.read()
+            if not return_value:
+                print('Video has ended or failed!')
+                break
+            frame_num +=1
+            print("Frame",frame_num)
+            cmap = plt.get_cmap('tab20b') #initialize color map
+            colors = [cmap(i)[:3] for i in np.linspace(0, 1, 20)]
+            for bid in allLines:
+                lines = allLines[bid]
+                color = colors[int(bid) % len(colors)]
+                color = [i * 255 for i in color]
+                for line in lines:
+                    if line[0] <= frame_num:
+                        cv.line(frame,line[1],line[2],color,2)
+            out.write(frame)
+
     else:
-        positions = results[bee_id]
+        positions = results[bee_id[0]]
         lines = []
 
         for i in range(1,len(positions)-1):
@@ -72,7 +101,7 @@ def draw_tracking_lines(results,videopath,output_path,bee_id=None):
             cmap = plt.get_cmap('tab20b') #initialize color map
             colors = [cmap(i)[:3] for i in np.linspace(0, 1, 20)]
             
-            color = colors[bee_id % len(colors)]  # draw bbox on screen
+            color = colors[bee_id[0] % len(colors)]  # draw bbox on screen
             color = [i * 255 for i in color]
 
             for line in lines:
