@@ -49,7 +49,7 @@ def draw_tracking_lines(results,videopath,output_path,bee_id=None):
                 color = [i * 255 for i in color]
                 for line in lines:
                     if line[0] <= frame_num:
-                        cv.line(frame,line[1],line[2],color,2)
+                        cv.line(frame,line[1],line[2],color=color,thickness=10)
             out.write(frame)
     elif len(bee_id) > 1:
         allLines = {}
@@ -77,7 +77,7 @@ def draw_tracking_lines(results,videopath,output_path,bee_id=None):
                 color = [i * 255 for i in color]
                 for line in lines:
                     if line[0] <= frame_num:
-                        cv.line(frame,line[1],line[2],color,2)
+                        cv.line(frame,line[1],line[2],color=color,thickness=10)
             out.write(frame)
 
     else:
@@ -106,7 +106,7 @@ def draw_tracking_lines(results,videopath,output_path,bee_id=None):
 
             for line in lines:
                 if line[0] <= frame_num:
-                    cv.line(frame,line[1],line[2],color,2)
+                    cv.line(frame,line[1],line[2],color=color,thickness=10)
             
             out.write(frame)
     out.release()
