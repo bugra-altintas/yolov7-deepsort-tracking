@@ -49,7 +49,14 @@ def draw_tracking_lines(results,videopath,output_path,bee_id=None):
                 color = [i * 255 for i in color]
                 for line in lines:
                     if line[0] <= frame_num:
-                        cv.line(frame,line[1],line[2],color=color,thickness=10)
+                        #cv.line(frame,line[1],line[2],color,2)
+                        cv.arrowedLine(frame,line[1],line[2],color,10)
+                        #measure angle of arrow
+                        angle = np.arctan2(line[2][1] - line[1][1], line[2][0] - line[1][0])
+                        angle = np.rad2deg(angle)
+                        if angle < 0:
+                            angle += 360
+                        cv.putText(frame,str(int(angle)),line[2],cv.FONT_HERSHEY_SIMPLEX,0.5,color,2)
             out.write(frame)
     elif len(bee_id) > 1:
         allLines = {}
@@ -106,8 +113,15 @@ def draw_tracking_lines(results,videopath,output_path,bee_id=None):
 
             for line in lines:
                 if line[0] <= frame_num:
-                    cv.line(frame,line[1],line[2],color=color,thickness=10)
-            
+                    #cv.line(frame,line[1],line[2],color=color,thickness=10)
+
+                    cv.arrowedLine(frame,line[1],line[2],color,10)
+                    #measure angle of arrow
+                    angle = np.arctan2(line[2][1] - line[1][1], line[2][0] - line[1][0])
+                    angle = np.rad2deg(angle)
+                    if angle < 0:
+                        angle += 360
+                    cv.putText(frame,str(int(angle)),line[2],cv.FONT_HERSHEY_SIMPLEX,0.5,color,2)
             out.write(frame)
     out.release()
 # calculate centers of bounding boxes
